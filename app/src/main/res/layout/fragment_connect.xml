@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dip"
+    >
+
+
+        <Spinner
+            android:layout_margin="20dp"
+            android:background="@drawable/custom_spinner_background"
+            android:spinnerMode="dialog"
+            android:id="@+id/spinnerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           />
+
+        <Spinner
+            android:layout_margin="20dp"
+            android:background="@drawable/custom_spinner_background"
+            android:spinnerMode="dropdown"
+            android:id="@+id/spinnerStage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <EditText
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:hint="Capacidad de campo"
+            android:id="@+id/textCC" />
+        <EditText
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="Humedad actual"
+            android:ems="10"
+            android:id="@+id/textHA" />
+
+        <Button
+            android:text="Calcular"
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/White"
+            android:background="@color/colorPrimary"
+            android:id="@+id/buttonCalculate" />
+
+
+
+
+
+
+</LinearLayout>
