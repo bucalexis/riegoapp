@@ -6,9 +6,8 @@
     android:padding="10dip"
     >
 
-
         <Spinner
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:background="@drawable/custom_spinner_background"
             android:spinnerMode="dialog"
             android:id="@+id/spinnerCrop"
@@ -17,23 +16,27 @@
            />
 
         <Spinner
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:background="@drawable/custom_spinner_background"
             android:spinnerMode="dropdown"
             android:id="@+id/spinnerStage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
+
+
+
         <EditText
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:ems="10"
             android:hint="Capacidad de campo"
             android:id="@+id/textCC" />
+
         <EditText
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
@@ -41,9 +44,18 @@
             android:ems="10"
             android:id="@+id/textHA" />
 
+        <EditText
+            android:layout_margin="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Fecha humedad actual"
+            android:ems="10"
+            android:id="@+id/textDate" />
+
         <Button
             android:text="Calcular"
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/White"

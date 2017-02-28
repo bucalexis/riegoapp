@@ -60,7 +60,27 @@ public class RecordsFragment extends Fragment implements
 
         //search.setQueryHint(getResources().getString(R.string.searching_view_text));
 
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Record record=new Record();
+                record=(Record) parent.getAdapter().getItem(position);
+                Log.d("Click:",record.getName());
+               // Log.e("Click:",s.getNumber() + "");
+                //FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                //  ExampleFragment fragment1 = new ExampleFragment ();
+                // ft.replace(R.id.content_frame, fragment1);
 
+                // ft.addToBackStack(null);
+
+                // fragment1.setArguments();
+                //ft.commit();
+                Intent intent = new Intent(getActivity(), RecordDetailsActivity.class);
+                intent.putExtra("recordName",record.getName());
+                startActivity(intent);
+
+            }
+        });
 
 
 
@@ -82,7 +102,7 @@ public class RecordsFragment extends Fragment implements
     public boolean onQueryTextChange(String newText) {
        // MyDBHandler dbHandler = new MyDBHandler(getActivity(), null, null, 1);
         Log.d("Query:",newText);
-        searchingList.clear();
+      //  searchingList.clear();
        // searchingList.addAll(dbHandler.findSongs(newText,"",1,""));
        // songsAdapter.notifyDataSetChanged();
 

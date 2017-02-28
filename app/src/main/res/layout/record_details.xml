@@ -1,0 +1,88 @@
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:scaleType = "centerCrop">
+
+        <LinearLayout
+            android:id="@+id/container_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/ccRel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_centerInParent="true"
+            android:background="@drawable/list_view_border"
+
+            android:layout_margin="20dp">
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="40dp"
+
+                android:background="#c0c0c0"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:textSize="28dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:text="Pedro Gonzalez"
+                android:id="@+id/descriptionName" />
+
+            <ImageView
+                android:id="@+id/deleteIcon"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/ic_delete" />
+
+            <TextView
+                android:layout_marginTop="52dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:textSize="20dp"
+                android:layout_toRightOf="@id/deleteIcon"
+                android:text="Capacidad de campo"
+                android:id="@+id/descriptionCC" />
+
+
+        </RelativeLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+
+</android.support.v4.widget.DrawerLayout>

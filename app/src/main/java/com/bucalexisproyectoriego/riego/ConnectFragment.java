@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import java.util.ArrayList;
 import android.widget.AdapterView;
+import android.view.View.OnFocusChangeListener;
 
 
 public class ConnectFragment extends Fragment {
@@ -98,7 +101,36 @@ public class ConnectFragment extends Fragment {
             }
         });
 
+        TextView datePicker = (TextView) rootView.findViewById(R.id.textDate);
+        datePicker.setOnFocusChangeListener(new OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    openDateDialog();
+                } else {
+                }
+            }
+        });
+
+        datePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDateDialog();
+
+            }
+        });
+
+        datePicker.setInputType(InputType.TYPE_NULL);
+        datePicker.setTextIsSelectable(true);
+        datePicker.setKeyListener(null);
+
+
         return rootView;
+    }
+
+    public void openDateDialog(){
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
     }
 
     public class CustomSpinnerAdapter extends BaseAdapter implements SpinnerAdapter {
