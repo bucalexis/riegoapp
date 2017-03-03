@@ -36,11 +36,9 @@ public class RecordsFragment extends Fragment implements
        // MyDBHandler dbHandler = new MyDBHandler(getActivity(), null, null, 1);
 
         //searchingList=dbHandler.findSongs("","",1,"");
-        searchingList.add(new Record("Pedro Gonzalez","27/01/2017",1,2,3,4,5));
-        searchingList.add(new Record("Pedro Gonzalez","27/01/2017",1,2,3,4,5));
-        searchingList.add(new Record("Pedro Gonzalez","27/01/2017",1,2,3,4,5));
-        searchingList.add(new Record("Pedro Gonzalez","27/01/2017",1,2,3,4,5));
-        searchingList.add(new Record("Pedro Gonzalez","27/01/2017",1,2,3,4,5));
+        searchingList.add(new Record("Pedro Gonzalez","27/01/2017",1,2,3,4,5,0,0,"Lote 65"));
+        searchingList.add(new Record("Pedro Gonzalez","27/01/2017",1,2,3,4,5,0,0,"Lote 65"));
+
 
         list = (ListView) rootView.findViewById(R.id.listOfRecords);
 

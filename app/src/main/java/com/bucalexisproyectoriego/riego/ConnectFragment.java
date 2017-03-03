@@ -49,8 +49,11 @@ public class ConnectFragment extends Fragment {
         Kc kc =  dbHandler.getKc(1);
         Pr pr = dbHandler.getPr(4);
 
+        ArrayList<Record> recordsList = dbHandler.getRecords();
+
         Log.e("ee","size" + cropsList.size());
         Log.e("ee","size" + stagesList.size());
+        Log.e("ee","size" + recordsList.get(0).getDate());
 
         Log.e("ee","kc" + kc.getValue());
         Log.e("ee","pr" + pr.getValue());

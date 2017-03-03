@@ -7,32 +7,31 @@ package com.bucalexisproyectoriego.riego;
 public class Record {
     private int id;
     private String name;
-    private int crop;
-    private int stage;
+    private int crop_id;
+    private int stage_id;
     private float result;
     private float cc;
     private float ha;
+    private float latitude;
+    private float longitude;
+    private String lote;
     private String date;
 
     public Record() {
     }
 
-    public Record(String name, String date, int crop, int stage, float cc, float ha, float result) {
+    public Record(String name, String date, int crop, int stage, float cc, float ha, float result,
+        float latitude, float longitude, String lote) {
         this.name = name;
         this.date = date;
-        this.crop = crop;
-        this.stage = stage;
+        this.crop_id = crop;
+        this.stage_id = stage;
         this.cc = cc;
         this.ha = ha;
         this.result = result;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.lote = lote;
     }
 
     public int getId() {
@@ -43,20 +42,28 @@ public class Record {
         this.id = id;
     }
 
-    public int getCrop() {
-        return crop;
+    public String getName() {
+        return name;
     }
 
-    public void setCrop(int crop) {
-        this.crop = crop;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getStage() {
-        return stage;
+    public int getCrop_id() {
+        return crop_id;
     }
 
-    public void setStage(int stage) {
-        this.stage = stage;
+    public void setCrop_id(int crop_id) {
+        this.crop_id = crop_id;
+    }
+
+    public int getStage_id() {
+        return stage_id;
+    }
+
+    public void setStage_id(int stage_id) {
+        this.stage_id = stage_id;
     }
 
     public float getResult() {
@@ -75,12 +82,36 @@ public class Record {
         this.cc = cc;
     }
 
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
+    }
+
     public float getHa() {
         return ha;
     }
 
     public void setHa(float ha) {
         this.ha = ha;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLote() {
+        return lote;
+    }
+
+    public void setLote(String lote) {
+        this.lote = lote;
     }
 
     public String getDate() {

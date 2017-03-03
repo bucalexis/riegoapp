@@ -32,6 +32,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
 
     //TABLA CLIENTES
+    public static final String RECORDS_TABLE = "records";
     public static final String CROPS_TABLE = "crops";
     public static final String STAGES_TABLE = "stages";
     public static final String KCS_TABLE = "kcs";
@@ -43,6 +44,20 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String CLI_TELF = "telefono";
     public static final String CLI_MAIL = "email";
 
+    public static final String RECORDS_TABLE_SQL =
+            "CREATE TABLE  " + RECORDS_TABLE + "(" +
+                    "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "name TEXT NOT NULL, " +
+                    "crop_id INTEGER NOT NULL, " +
+                    "stage_id INTEGER NOT NULL, " +
+                    "result REAL NOT NULL, " +
+                    "cc REAL NOT NULL, " +
+                    "ha REAL NOT NULL, " +
+                    "date TEXT NOT NULL, " +
+                    "latitude REAL, " +
+                    "longitude REAL, " +
+                    "lote TEXT" +
+                    ");";
 
     public static final String CROPS_TABLE_SQL =
             "CREATE TABLE  " + CROPS_TABLE + "(" +
@@ -77,6 +92,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.execSQL(STAGES_TABLE_SQL);
         db.execSQL(KCS_TABLE_SQL);
         db.execSQL(PRS_TABLE_SQL);
+        db.execSQL(RECORDS_TABLE_SQL);
+
         InputStream is = null;
         try {
             is = context.getAssets().open("import.sql");
@@ -149,6 +166,38 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 crop.setId(cursor.getInt(0));
                 crop.setName(cursor.getString(1));
                 list.add(crop);
+            }
+        } finally {
+            cursor.close();
+        }
+        db.close();
+        return list;
+    }
+
+    public ArrayList getRecords() {
+        String query = "Select * FROM " + "records";
+        Log.d("Query:", query);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+        ArrayList<Record> list = new ArrayList<Record>();
+
+        try {
+            while (cursor.moveToNext()) {
+                Record record = new Record();
+                record.setId(cursor.getInt(0));
+                record.setName(cursor.getString(1));
+                record.setCrop_id(cursor.getInt(2));
+                record.setStage_id(cursor.getInt(3));
+                record.setResult(cursor.getFloat(4));
+                record.setCc(cursor.getFloat(5));
+                record.setHa(cursor.getFloat(6));
+                record.setDate(cursor.getString(7));
+                record.setLatitude(cursor.getFloat(8));
+                record.setLongitude(cursor.getFloat(9));
+                record.setLote(cursor.getString(10));
+                list.add(record);
             }
         } finally {
             cursor.close();
