@@ -24,6 +24,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import java.util.ArrayList;
 import android.widget.AdapterView;
 import android.view.View.OnFocusChangeListener;
+import java.util.Arrays;
 
 
 public class ConnectFragment extends Fragment {
@@ -41,6 +42,23 @@ public class ConnectFragment extends Fragment {
         Spinner spinnerCustom= (Spinner) rootView.findViewById(R.id.spinnerCrop);
         Spinner spinnerCustom2= (Spinner) rootView.findViewById(R.id.spinnerStage);
 
+        MyDBHandler dbHandler = new MyDBHandler(getActivity(), null, null, 1);
+        ArrayList<Crop> cropsList = dbHandler.getCrops();
+
+        ArrayList<Stage> stagesList = dbHandler.getStages(cropsList.get(0).getId());
+        Kc kc =  dbHandler.getKc(1);
+        Pr pr = dbHandler.getPr(4);
+
+        Log.e("ee","size" + cropsList.size());
+        Log.e("ee","size" + stagesList.size());
+
+        Log.e("ee","kc" + kc.getValue());
+        Log.e("ee","pr" + pr.getValue());
+
+
+
+
+
         // Spinner Drop down elements
         ArrayList<String> languages = new ArrayList<String>();
         languages.add("Andorid");
@@ -48,8 +66,13 @@ public class ConnectFragment extends Fragment {
         languages.add("PHP");
         languages.add("Java");
         languages.add(".Net");
-        CustomSpinnerAdapter customSpinnerAdapter=new CustomSpinnerAdapter(getActivity(),languages);
+        String [] crops = getResources().getStringArray(R.array.planets_array);
+        String [] stages = getResources().getStringArray(R.array.stages_array);
+
+
+        CustomSpinnerAdapter customSpinnerAdapter=new CustomSpinnerAdapter(getActivity(), new ArrayList (Arrays.asList(crops)));
         spinnerCustom.setAdapter(customSpinnerAdapter);
+        customSpinnerAdapter=new CustomSpinnerAdapter(getActivity(), new ArrayList (Arrays.asList(stages)));
         spinnerCustom2.setAdapter(customSpinnerAdapter);
 
         spinnerCustom.setOnItemSelectedListener(new OnItemSelectedListener() {

@@ -18,7 +18,7 @@
         <Spinner
             android:layout_margin="15dp"
             android:background="@drawable/custom_spinner_background"
-            android:spinnerMode="dropdown"
+            android:spinnerMode="dialog"
             android:id="@+id/spinnerStage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

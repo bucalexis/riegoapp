@@ -8,13 +8,15 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
     <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+        <item>Trigo</item>
+        <item>Maiz</item>
+        <item>Sorgo</item>
+    </string-array>
+
+    <string-array name="stages_array">
+        <item>Inicial</item>
+        <item>Desarrollo</item>
+        <item>Espigamiento</item>
+        <item>Cosecha</item>
     </string-array>
 </resources>
