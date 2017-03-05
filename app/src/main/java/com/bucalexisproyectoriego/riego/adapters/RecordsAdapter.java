@@ -1,4 +1,4 @@
-package com.bucalexisproyectoriego.riego;
+package com.bucalexisproyectoriego.riego.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bucalexisproyectoriego.riego.R;
+import com.bucalexisproyectoriego.riego.databaseobjects.Record;
 
 import java.util.List;
 

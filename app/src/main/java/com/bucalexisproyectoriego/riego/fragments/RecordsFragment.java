@@ -1,4 +1,4 @@
-package com.bucalexisproyectoriego.riego;
+package com.bucalexisproyectoriego.riego.fragments;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -12,6 +12,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+
+import com.bucalexisproyectoriego.riego.R;
+import com.bucalexisproyectoriego.riego.RecordDetailsActivity;
+import com.bucalexisproyectoriego.riego.adapters.RecordsAdapter;
+import com.bucalexisproyectoriego.riego.databaseobjects.Record;
 
 import java.util.ArrayList;
 

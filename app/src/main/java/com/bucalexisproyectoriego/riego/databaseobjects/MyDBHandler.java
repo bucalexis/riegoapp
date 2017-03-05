@@ -1,4 +1,4 @@
-package com.bucalexisproyectoriego.riego;
+package com.bucalexisproyectoriego.riego.databaseobjects;
 
 /**
  * Created by NanX3 on 29/10/2016.
@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import android.text.TextUtils;
+
 import java.io.IOException;
 
 public class MyDBHandler extends SQLiteOpenHelper {

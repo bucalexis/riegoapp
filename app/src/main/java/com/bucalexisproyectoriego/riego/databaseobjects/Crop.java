@@ -1,4 +1,4 @@
-package com.bucalexisproyectoriego.riego;
+package com.bucalexisproyectoriego.riego.databaseobjects;
 
 /**
  * Created by bucalexis on 3/2/17.
@@ -23,5 +23,10 @@ public class Crop {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

@@ -12,16 +12,21 @@ import android.util.Log;
 import android.view.View;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bucalexisproyectoriego.riego.fragments.CalculateFragment;
+import com.bucalexisproyectoriego.riego.fragments.RecordsFragment;
+import android.os.StrictMode;
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
-    int previousFragment = -1;
+    int previousFragment = R.id.home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -44,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     Fragment fragment = null;
                     switch (id){
                         case R.id.home:
-                            fragment = new ConnectFragment();
+                            fragment = new CalculateFragment();
                             previousFragment = id;
                             // drawerLayout.closeDrawers();
                             break;
@@ -70,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
         View header = navigationView.getHeaderView(0);
         TextView tv_email = (TextView)header.findViewById(R.id.tv_email);
         tv_email.setText("raj.amalw@learn2crack.com");
@@ -90,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-        Fragment fragment = new ConnectFragment();
+        Fragment fragment = new CalculateFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
         getSupportActionBar().setTitle("Calcular");

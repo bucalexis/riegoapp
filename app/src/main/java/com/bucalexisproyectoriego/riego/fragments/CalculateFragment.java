@@ -1,8 +1,10 @@
-package com.bucalexisproyectoriego.riego;
+package com.bucalexisproyectoriego.riego.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -17,73 +19,80 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.ArrayAdapter;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import java.util.ArrayList;
 import android.widget.AdapterView;
 import android.view.View.OnFocusChangeListener;
-import java.util.Arrays;
+import com.bucalexisproyectoriego.riego.internetconnections.ProcessJSON;
+import com.bucalexisproyectoriego.riego.R;
+import com.bucalexisproyectoriego.riego.internetconnections.NetworkUtil;
+import com.bucalexisproyectoriego.riego.databaseobjects.Crop;
+import com.bucalexisproyectoriego.riego.databaseobjects.Kc;
+import com.bucalexisproyectoriego.riego.databaseobjects.MyDBHandler;
+import com.bucalexisproyectoriego.riego.databaseobjects.Pr;
+import com.bucalexisproyectoriego.riego.databaseobjects.Stage;
+import android.app.ProgressDialog;
 
 
-public class ConnectFragment extends Fragment {
+public class CalculateFragment extends Fragment {
 
-    public ConnectFragment() {
+    public CalculateFragment() {
     }
 
     private Button buttonCalculate;
-    private String name;
+    MyDBHandler dbHandler;
+    Spinner stageSpinner;
+    public boolean existsEto = false;
+    private String date;
+    private float kc;
+    private float pr;
+    private float cc;
+    private float ha;
+    private float eto;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_connect, container, false);
-        Spinner spinnerCustom= (Spinner) rootView.findViewById(R.id.spinnerCrop);
-        Spinner spinnerCustom2= (Spinner) rootView.findViewById(R.id.spinnerStage);
+        View rootView = inflater.inflate(R.layout.fragment_calculate, container, false);
+        Spinner cropSpinner= (Spinner) rootView.findViewById(R.id.spinnerCrop);
+        stageSpinner= (Spinner) rootView.findViewById(R.id.spinnerStage);
 
-        MyDBHandler dbHandler = new MyDBHandler(getActivity(), null, null, 1);
+        dbHandler = new MyDBHandler(getActivity(), null, null, 1);
         ArrayList<Crop> cropsList = dbHandler.getCrops();
 
-        ArrayList<Stage> stagesList = dbHandler.getStages(cropsList.get(0).getId());
-        Kc kc =  dbHandler.getKc(1);
-        Pr pr = dbHandler.getPr(4);
+        CustomSpinnerAdapter customSpinnerAdapter=new CustomSpinnerAdapter(getActivity(), cropsList);
+        cropSpinner.setAdapter(customSpinnerAdapter);
 
-        ArrayList<Record> recordsList = dbHandler.getRecords();
-
-        Log.e("ee","size" + cropsList.size());
-        Log.e("ee","size" + stagesList.size());
-        Log.e("ee","size" + recordsList.get(0).getDate());
-
-        Log.e("ee","kc" + kc.getValue());
-        Log.e("ee","pr" + pr.getValue());
-
-
-
-
-
-        // Spinner Drop down elements
-        ArrayList<String> languages = new ArrayList<String>();
-        languages.add("Andorid");
-        languages.add("IOS");
-        languages.add("PHP");
-        languages.add("Java");
-        languages.add(".Net");
-        String [] crops = getResources().getStringArray(R.array.planets_array);
-        String [] stages = getResources().getStringArray(R.array.stages_array);
-
-
-        CustomSpinnerAdapter customSpinnerAdapter=new CustomSpinnerAdapter(getActivity(), new ArrayList (Arrays.asList(crops)));
-        spinnerCustom.setAdapter(customSpinnerAdapter);
-        customSpinnerAdapter=new CustomSpinnerAdapter(getActivity(), new ArrayList (Arrays.asList(stages)));
-        spinnerCustom2.setAdapter(customSpinnerAdapter);
-
-        spinnerCustom.setOnItemSelectedListener(new OnItemSelectedListener() {
+        cropSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Crop crop =(Crop)parent.getAdapter().getItem(position);
+                Log.e("spinner", crop.getName() + crop.getId());
 
-                String item = parent.getItemAtPosition(position).toString();
+                ArrayList<Stage> stagesList = dbHandler.getStages(crop.getId());
+                CustomSpinnerAdapter customSpinnerAdapter=new CustomSpinnerAdapter(getActivity(), stagesList);
+                stageSpinner.setAdapter(customSpinnerAdapter);
 
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        stageSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Stage stage =(Stage)parent.getAdapter().getItem(position);
+                Kc stageKc = dbHandler.getKc(stage.getId());
+                Pr stagePr = dbHandler.getPr(stage.getId());
+                kc = stageKc.getValue();
+                pr = stagePr.getValue();
+
+                Log.e("spinner", stage.getName() + " " + stage.getId() + " "+ kc + " " + pr);
             }
 
             @Override
@@ -94,12 +103,23 @@ public class ConnectFragment extends Fragment {
 
 
        // getActivity().setContentView(R.layout.android_user_input_dialog);
-
         buttonCalculate = (Button) rootView.findViewById(R.id.buttonCalculate);
        buttonCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getActivity());
+                    NetworkUtil.context = getContext();
+
+
+                       //Log.e("main", "available");
+
+                       ProcessJSON jsonData = (ProcessJSON) new ProcessJSON(getActivity(), view).execute("http://104.131.109.172/");
+
+
+
+
+
+
+               /* LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getActivity());
                 View mView = layoutInflaterAndroid.inflate(R.layout.user_input_dialog_box, null);
                 AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(getActivity());
                 alertDialogBuilderUserInput.setView(mView);
@@ -123,7 +143,7 @@ public class ConnectFragment extends Fragment {
                                 });
 
                 AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-                alertDialogAndroid.show();
+                alertDialogAndroid.show();*/
             }
         });
 
@@ -154,6 +174,17 @@ public class ConnectFragment extends Fragment {
         return rootView;
     }
 
+    public boolean isOnline() {
+
+        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void openDateDialog(){
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
@@ -162,9 +193,10 @@ public class ConnectFragment extends Fragment {
     public class CustomSpinnerAdapter extends BaseAdapter implements SpinnerAdapter {
 
         private final Context activity;
-        private ArrayList<String> asr;
+        private ArrayList asr;
 
-        public CustomSpinnerAdapter(Context context,ArrayList<String> asr) {
+
+        public CustomSpinnerAdapter(Context context,ArrayList asr) {
             this.asr=asr;
             activity = context;
         }
@@ -194,7 +226,7 @@ public class ConnectFragment extends Fragment {
             txt.setPadding(16, 16, 16, 16);
             txt.setTextSize(18);
             txt.setGravity(Gravity.CENTER_VERTICAL);
-            txt.setText(asr.get(position));
+            txt.setText(asr.get(position).toString());
             txt.setTextColor(Color.parseColor("#000000"));
             return  txt;
         }
@@ -205,7 +237,7 @@ public class ConnectFragment extends Fragment {
             txt.setPadding(16, 16, 16, 16);
             txt.setTextSize(16);
             txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_down, 0);
-            txt.setText(asr.get(i));
+            txt.setText(asr.get(i).toString());
             txt.setTextColor(Color.parseColor("#000000"));
             return  txt;
         }

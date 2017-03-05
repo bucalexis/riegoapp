@@ -1,4 +1,4 @@
-package com.bucalexisproyectoriego.riego;
+package com.bucalexisproyectoriego.riego.databaseobjects;
 
 /**
  * Created by bucalexis on 3/2/17.
