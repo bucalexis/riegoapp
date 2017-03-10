@@ -23,6 +23,8 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import java.util.ArrayList;
+import java.util.Date;
+
 import android.widget.AdapterView;
 import android.view.View.OnFocusChangeListener;
 import com.bucalexisproyectoriego.riego.internetconnections.ProcessJSON;
@@ -38,7 +40,7 @@ import android.app.ProgressDialog;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import android.widget.Toast;
-
+import android.text.format.DateFormat;
 public class CalculateFragment extends Fragment {
 
     public CalculateFragment() {
@@ -185,6 +187,7 @@ public class CalculateFragment extends Fragment {
         datePicker.setInputType(InputType.TYPE_NULL);
         datePicker.setTextIsSelectable(true);
         datePicker.setKeyListener(null);
+        datePicker.setText(convertDate(new Date().getTime(),"dd/MM/yyyy"));
 
 
         return rootView;
@@ -233,7 +236,9 @@ public class CalculateFragment extends Fragment {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
     }
-
+    public String convertDate(long dateInMilliseconds,String dateFormat) {
+        return DateFormat.format(dateFormat, dateInMilliseconds).toString();
+    }
     public class CustomSpinnerAdapter extends BaseAdapter implements SpinnerAdapter {
 
         private final Context activity;
