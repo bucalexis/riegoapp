@@ -35,6 +35,9 @@ import com.bucalexisproyectoriego.riego.databaseobjects.Pr;
 import com.bucalexisproyectoriego.riego.databaseobjects.Stage;
 import android.app.ProgressDialog;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import android.widget.Toast;
 
 public class CalculateFragment extends Fragment {
 
@@ -51,6 +54,11 @@ public class CalculateFragment extends Fragment {
     private float cc;
     private float ha;
     private float eto;
+    private TextView datePicker;
+    private TextView ccInput;
+    private TextView haInput;
+
+    private AwesomeValidation awesomeValidation;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,6 +72,8 @@ public class CalculateFragment extends Fragment {
 
         CustomSpinnerAdapter customSpinnerAdapter=new CustomSpinnerAdapter(getActivity(), cropsList);
         cropSpinner.setAdapter(customSpinnerAdapter);
+        //awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+        //awesomeValidation.addValidation(getActivity(), R.id.textDate, "1+", R.string.dateerror);
 
         cropSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -108,11 +118,13 @@ public class CalculateFragment extends Fragment {
             @Override
             public void onClick(View view) {
                     NetworkUtil.context = getContext();
+                    if (validateInput()){
 
+                    }
 
                        //Log.e("main", "available");
 
-                       ProcessJSON jsonData = (ProcessJSON) new ProcessJSON(getActivity(), view).execute("http://104.131.109.172/");
+                       //ProcessJSON jsonData = (ProcessJSON) new ProcessJSON(getActivity(), view).execute("http://104.131.109.172/");
 
 
 
@@ -147,7 +159,11 @@ public class CalculateFragment extends Fragment {
             }
         });
 
-        TextView datePicker = (TextView) rootView.findViewById(R.id.textDate);
+        datePicker = (TextView) rootView.findViewById(R.id.textDate);
+        ccInput = (TextView) rootView.findViewById(R.id.textCC);
+        haInput = (TextView) rootView.findViewById(R.id.textHA);
+
+
         datePicker.setOnFocusChangeListener(new OnFocusChangeListener(){
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -174,15 +190,43 @@ public class CalculateFragment extends Fragment {
         return rootView;
     }
 
-    public boolean isOnline() {
+    public boolean validateInput() {
+        boolean result = true;
+        if (!ccInput.getText().toString().isEmpty()){
 
-        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnected()) {
-            return true;
-        } else {
-            return false;
+            if (Integer.parseInt(ccInput.getText().toString()) < 20 ){
+                ccInput.setError("Debe ser al menos 20");
+                result = false;
+            }
+            if (Integer.parseInt(ccInput.getText().toString()) > 60 ){
+                ccInput.setError("Debe ser menor a 60");
+                result = false;
+            }
+
         }
+        else{
+            ccInput.setError("Ingrese valor");
+        }
+
+        if (!haInput.getText().toString().isEmpty()){
+
+            if (Integer.parseInt(haInput.getText().toString()) < 20 ){
+                haInput.setError("Debe ser al menos 20");
+                result = false;
+            }
+            if (Integer.parseInt(haInput.getText().toString()) > 60 ){
+                haInput.setError("Debe ser menor a 60");
+                result = false;
+            }
+
+        }
+        else{
+            haInput.setError("Ingrese valor");
+            result = false;
+        }
+
+
+        return result;
     }
 
     public void openDateDialog(){

@@ -16,7 +16,8 @@ import android.widget.TextView;
 import com.bucalexisproyectoriego.riego.fragments.CalculateFragment;
 import com.bucalexisproyectoriego.riego.fragments.RecordsFragment;
 import android.os.StrictMode;
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity   {
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     int previousFragment = R.id.home;
@@ -102,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Calcular");
         navigationView.getMenu().getItem(0).setChecked(true);
     }
-
 
 
 }

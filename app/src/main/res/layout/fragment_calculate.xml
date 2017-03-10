@@ -30,7 +30,7 @@
             android:layout_margin="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:ems="10"
             android:hint="Capacidad de campo"
             android:id="@+id/textCC" />
@@ -39,7 +39,7 @@
             android:layout_margin="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:hint="Humedad actual"
             android:ems="10"
             android:id="@+id/textHA" />

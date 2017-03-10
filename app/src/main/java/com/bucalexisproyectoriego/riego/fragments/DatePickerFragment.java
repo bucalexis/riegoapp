@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import java.util.Date;
 
 import com.bucalexisproyectoriego.riego.R;
 
@@ -23,7 +24,22 @@ public class DatePickerFragment extends DialogFragment
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         // Create a new instance of DatePickerDialog and return it
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, year, month, day);
+        dialog.getDatePicker().setMaxDate(new Date().getTime());
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, 1);
+        cal.set(Calendar.DATE, 01);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date date = cal.getTime();
+
+        dialog.getDatePicker().setMinDate(date.getTime());
+
+        return dialog;
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
