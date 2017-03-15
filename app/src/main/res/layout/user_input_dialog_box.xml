@@ -22,13 +22,19 @@
         android:textStyle="bold"
         android:layout_gravity="center"
         android:textSize="16dp"
-        android:text="Si desea guardar el resultado ingrese un nombre:"
+        android:text="Si desea guardar el resultado proporcione lo siguiente:"
         />
 
     <EditText
         android:id="@+id/userInputDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Something"
+        android:hint="Ingrese nombre"
+        android:inputType="text" />
+    <EditText
+        android:id="@+id/loteInputDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Parcela o lote"
         android:inputType="text" />
 </LinearLayout>
