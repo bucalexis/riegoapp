@@ -60,10 +60,13 @@ public class CalculateFragment extends Fragment {
     private float pr;
     private float cc;
     private float ha;
+    private int crop_id;
+    private int stage_id;
     private float eto;
     private TextView datePicker;
     private TextView ccInput;
     private TextView haInput;
+    private TextView dialogResult;
 
     private AwesomeValidation awesomeValidation;
 
@@ -91,6 +94,7 @@ public class CalculateFragment extends Fragment {
                 ArrayList<Stage> stagesList = dbHandler.getStages(crop.getId());
                 CustomSpinnerAdapter customSpinnerAdapter = new CustomSpinnerAdapter(getActivity(), stagesList);
                 stageSpinner.setAdapter(customSpinnerAdapter);
+                crop_id = crop.getId();
 
             }
 
@@ -108,7 +112,7 @@ public class CalculateFragment extends Fragment {
                 Pr stagePr = dbHandler.getPr(stage.getId());
                 kc = stageKc.getValue();
                 pr = stagePr.getValue();
-
+                stage_id = stage.getId();
                 Log.e("spinner", stage.getName() + " " + stage.getId() + " " + kc + " " + pr);
             }
 
@@ -125,18 +129,21 @@ public class CalculateFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 NetworkUtil.context = getContext();
-                //if (validateInput()){
-                cc = Integer.parseInt(ccInput.getText().toString());
-                ha = Integer.parseInt(haInput.getText().toString());
-                String[] parts = datePicker.getText().toString().split("/");
-                int day = Integer.parseInt(parts[0]) - 1;
-                String url = "http://104.131.109.172/?date=" + parts[2] + "-" + parts[1] + "-" + day;
-                Log.e("result eto", url);
+                NetworkUtil.startConnection();
+                if (validateInput()) {
+                    cc = Integer.parseInt(ccInput.getText().toString());
+                    ha = Integer.parseInt(haInput.getText().toString());
+                    String[] parts = datePicker.getText().toString().split("/");
+                    int year = Integer.parseInt(parts[2]);
+                    int month = Integer.parseInt(parts[1]);
+                    int day = Integer.parseInt(parts[0]) - 1;
+                    String url = "http://104.131.109.172/?date=" + year + "-" + month + "-" + day;
+                    Log.e("result eto", url);
 
-                ProcessJSON jsonData = (ProcessJSON) new ProcessJSON(getActivity(), view, cc, ha, pr, kc).execute(url);
+                    ProcessJSON jsonData = (ProcessJSON) new ProcessJSON(getActivity(), view, cc, ha, pr, kc, crop_id, stage_id, year, month, day + 1).execute(url);
 
 
-//                    }
+                }
 
                 //Log.e("main", "available");
 

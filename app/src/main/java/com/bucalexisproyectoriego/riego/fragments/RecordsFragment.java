@@ -17,6 +17,7 @@ import com.bucalexisproyectoriego.riego.R;
 import com.bucalexisproyectoriego.riego.RecordDetailsActivity;
 import com.bucalexisproyectoriego.riego.adapters.RecordsAdapter;
 import com.bucalexisproyectoriego.riego.databaseobjects.Record;
+import com.bucalexisproyectoriego.riego.databaseobjects.MyDBHandler;
 
 import java.util.ArrayList;
 
@@ -38,11 +39,11 @@ public class RecordsFragment extends Fragment implements
 
         View rootView = inflater.inflate(R.layout.fragment_records, container, false);
         searchingList = new ArrayList<Record>();
-       // MyDBHandler dbHandler = new MyDBHandler(getActivity(), null, null, 1);
+        MyDBHandler dbHandler = new MyDBHandler(getActivity(), null, null, 1);
 
-        //searchingList=dbHandler.findSongs("","",1,"");
-        searchingList.add(new Record("Pedro Gonzalez","27/01/2017",1,2,3,4,5,0,0,"Lote 65"));
-        searchingList.add(new Record("Pedro Gonzalez","27/01/2017",1,2,3,4,5,0,0,"Lote 65"));
+        searchingList=dbHandler.getRecords();
+      //  searchingList.add(new Record("Pedro Gonzalez","27/01/2017",1,2,3,4,5,0,0,"Lote 65"));
+       // searchingList.add(new Record("Pedro Gonzalez","27/01/2017",1,2,3,4,5,0,0,"Lote 65"));
 
 
         list = (ListView) rootView.findViewById(R.id.listOfRecords);

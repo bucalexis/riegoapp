@@ -51,7 +51,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
                     "name TEXT NOT NULL, " +
                     "crop_id INTEGER NOT NULL, " +
                     "stage_id INTEGER NOT NULL, " +
-                    "result REAL NOT NULL, " +
+                    "result TEXT NOT NULL, " +
                     "cc REAL NOT NULL, " +
                     "ha REAL NOT NULL, " +
                     "date TEXT NOT NULL, " +
@@ -149,6 +149,37 @@ public class MyDBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.insert("crops", null, values);
+        db.close();
+    }
+    private String name;
+    private int crop_id;
+    private int stage_id;
+    private float result;
+    private float cc;
+    private float ha;
+    private float latitude;
+    private float longitude;
+    private String lote;
+    private String date;
+
+
+    public void addRecord(String name, int crop_id, int stage_id, String result, float cc, float ha, float latitude, float longitude, String lote, String date) {
+
+        ContentValues values = new ContentValues();
+        values.put("name", name);
+        values.put("crop_id", crop_id);
+        values.put("stage_id", stage_id);
+        values.put("result", result);
+        values.put("cc", cc);
+        values.put("ha", ha);
+        values.put("date", date);
+        values.put("latitude", latitude);
+        values.put("longitude", longitude);
+        values.put("lote", lote);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.insert("records", null, values);
         db.close();
     }
 

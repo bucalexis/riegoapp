@@ -58,5 +58,7 @@ public class DatePickerFragment extends DialogFragment
 
         dateField.setText(dayNumber + "/" + monthNumber+ "/"+view.getYear());
 
+
+
     }
 }
